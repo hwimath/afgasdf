@@ -139,451 +139,446 @@
 </div>
 
 <script>
-// -------------------- 문제 데이터 (무작위로 출제) --------------------
-const questions = [
-  {
-    // (1) log_{7^2}(7^3) => 3/2
-    question: "다음을 간단히 하시오: \\(\\log_{7^2}(7^3)\\).",
-    choices: ["1","\\(\\tfrac{3}{2}\\)","2","\\(\\tfrac{5}{2}\\)"],
-    correctIndex: 1,
-    correctText: "\\(\\tfrac{3}{2}\\)"
-  },
-  {
-    // (2) 81^(log_9(4)) => 16
-    question: "다음을 간단히 하시오: \\(81^{\\log_{9}(4)}\\).",
-    choices: ["4","8","12","16"],
-    correctIndex: 3,
-    correctText: "16"
-  },
-  {
-    // (3) log_9(3*sqrt{3}) => 3/4
-    question: "다음을 간단히 하시오: \\(\\log_{9}(3\\sqrt{3})\\).",
-    choices: ["\\(\\tfrac12\\)","\\(\\tfrac34\\)","1","\\(\\tfrac54\\)"],
-    correctIndex: 1,
-    correctText: "\\(\\tfrac{3}{4}\\)"
-  },
-  {
-    // (4) 27^(log_3(2)) => 8
-    question: "다음을 간단히 하시오: \\(27^{\\log_{3}(2)}\\).",
-    choices: ["2","4","6","8"],
-    correctIndex: 3,
-    correctText: "8"
-  },
-  {
-    // (5) log_{81}(27) => 3/4
-    question: "다음을 간단히 하시오: \\(\\log_{81}(27)\\).",
-    choices: ["\\(\\tfrac14\\)","\\(\\tfrac12\\)","\\(\\tfrac34\\)","1"],
-    correctIndex: 2,
-    correctText: "\\(\\tfrac{3}{4}\\)"
-  },
-  {
-    // (7) 2^(log_2(10)) => 10
-    question: "다음을 간단히 하시오: \\(2^{\\log_{2}(10)}\\).",
-    choices: ["2","5","10","12"],
-    correctIndex: 2,
-    correctText: "10"
-  },
-  {
-    // (8) log_8(2*sqrt2) => 1/2
-    question: "다음을 간단히 하시오: \\(\\log_{8}(2\\sqrt{2})\\).",
-    choices: ["\\(\\tfrac13\\)","\\(\\tfrac12\\)","\\(\\tfrac23\\)","1"],
-    correctIndex: 1,
-    correctText: "\\(\\tfrac12\\)"
-  },
-  {
-    // (9) log_{5^3}(5^4) => 4/3
-    question: "다음을 간단히 하시오: \\(\\log_{5^3}(5^4)\\).",
-    choices: ["1","\\(\\tfrac{4}{3}\\)","\\(\\tfrac{3}{4}\\)","5"],
-    correctIndex: 1,
-    correctText: "\\(\\tfrac{4}{3}\\)"
-  },
-  {
-    // (11) 3^{log_3(10)} => 10
-    question: "다음을 간단히 하시오: \\(3^{\\log_{3}(10)}\\).",
-    choices: ["3","9","10","30"],
-    correctIndex: 2,
-    correctText: "10"
-  },
-  {
-    // (17) 2^{log_4(9)} => 3
-    question: "다음을 간단히 하시오: \\(2^{\\log_{4}(9)}\\).",
-    choices: ["2","3","4","9"],
-    correctIndex: 1,
-    correctText: "3"
-  },
-  {
-    // (18) 125^{log_25(9)} => 27
-    question: "다음을 간단히 하시오: \\(125^{\\log_{25}(9)}\\).",
-    choices: ["9","15","25","27"],
-    correctIndex: 3,
-    correctText: "27"
-  },
-  {
-    // (19) log_{1/2}(10) + log_{1/4}(25) => -1 - 2 log_2(5)
-    question: "다음을 간단히 하시오: \\(\\log_{\\tfrac12}(10) + \\log_{\\tfrac14}(25)\\).",
-    choices: [
-      "-1",
-      "-2\\log_{2}(5)",
-      "-1 - 2\\log_{2}(5)",
-      "1 - 2\\log_{2}(5)"
-    ],
-    correctIndex: 2,
-    correctText: "-1 - 2\\log_{2}(5)"
-  },
-  {
-    // (20) log_{1/2}(2) + log_7(1/7) => -2
-    question: "다음을 간단히 하시오: \\(\\log_{\\tfrac12}(2) + \\log_{7}(\\tfrac{1}{7})\\).",
-    choices: ["-2","-1","0","2"],
-    correctIndex: 0,
-    correctText: "-2"
-  },
-  {
-    // (21) log_4(2) + log_{16}(2) => 3/4
-    question: "다음을 간단히 하시오: \\(\\log_{4}(2) + \\log_{16}(2)\\).",
-    choices: ["\\(\\tfrac12\\)","\\(\\tfrac34\\)","1","\\(\\tfrac54\\)"],
-    correctIndex: 1,
-    correctText: "\\(\\tfrac34\\)"
-  },
-  {
-    // (22) log_8(81) + log_4(3) => 11/6 log_2(3)
-    question: "다음을 간단히 하시오: \\(\\log_{8}(81) + \\log_{4}(3)\\).",
-    choices: [
-      "\\(\\tfrac{11}{6}\\log_{2}(3)\\)",
-      "3",
-      "\\(\\tfrac12\\)",
-      "5"
-    ],
-    correctIndex: 0,
-    correctText: "\\(\\tfrac{11}{6}\\log_{2}(3)\\)"
-  },
-  {
-    // (24) log_3( cbrt{16} ) + log_9( sqrt{8} ) => 25/12 log_3(2)
-    question: "다음을 간단히 하시오: \\(\\log_{3}(\\sqrt[3]{16}) + \\log_{9}(\\sqrt{8})\\).",
-    choices: [
-      "\\(\\tfrac{25}{12}\\log_{3}(2)\\)",
-      "\\(\\tfrac{4}{3}\\log_{3}(2)\\)",
-      "3",
-      "4"
-    ],
-    correctIndex: 0,
-    correctText: "\\(\\tfrac{25}{12}\\log_{3}(2)\\)"
-  },
-  {
-    // (28) 2^(a+b)=5, 3^(a-b)=4 => find 3^(a^2-b^2) => 25
-    question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(2^{a+b}=5\\), \\(3^{a-b}=4\\).<br/>이때 \\(3^{a^2 - b^2}\\)의 값을 구하시오.",
-    choices: ["4","9","16","25"],
-    correctIndex: 3,
-    correctText: "25"
-  },
-  {
-    // (29) 4^a=125, 16^b=27 => 5^(b/a)=sqrt{3}
-    question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(4^a=125\\), \\(16^b=27\\).<br/>이때 \\(5^{\\frac{b}{a}}\\)의 값을 구하시오.",
-    choices: [
-      "\\(\\sqrt{2}\\)",
-      "\\(\\sqrt{3}\\)",
-      "2",
-      "3"
-    ],
-    correctIndex: 1,
-    correctText: "\\(\\sqrt{3}\\)"
-  },
-  {
-    // (30) 3^(a+b)=4, 2^(a-b)=5 => 3^(a^2 - b^2) =>25
-    question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(3^{a+b}=4\\), \\(2^{a-b}=5\\).<br/>이때 \\(3^{a^2 - b^2}\\)의 값을 구하시오.",
-    choices: ["9","16","20","25"],
-    correctIndex: 3,
-    correctText: "25"
-  },
-  {
-    // (31) 27^a=8, 3^b=49 => find 2^(b/a)=49
-    question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(27^a=8\\), \\(3^b=49\\).<br/>이때 \\(2^{\\frac{b}{a}}\\)의 값을 구하시오.",
-    choices: ["7","16","25","49"],
-    correctIndex: 3,
-    correctText: "49"
-  },
-  {
-    // (32) 5^a=2, 5^b=3 => find 2^(b/a)=3
-    question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(5^a=2\\), \\(5^b=3\\).<br/>이때 \\(2^{\\frac{b}{a}}\\)의 값을 구하시오.",
-    choices: ["2","3","4","6"],
-    correctIndex: 1,
-    correctText: "3"
-  }
-];
+  // -------------------- 문제 데이터 (무작위 출제) --------------------
+  const questions = [
+    {
+      // 문제: \(\log_{7^2}(7^3)\) → 답: \(\frac{3}{2}\)
+      question: "다음을 간단히 하시오: \\(\\log_{7^2}(7^3)\\).",
+      choices: ["1", "\\(\\tfrac{3}{2}\\)", "2", "\\(\\tfrac{5}{2}\\)"],
+      correctIndex: 1,
+      correctText: "\\(\\tfrac{3}{2}\\)"
+    },
+    {
+      // 문제: \(81^{\\log_{9}(4)}\) → 답: 16
+      question: "다음을 간단히 하시오: \\(81^{\\log_{9}(4)}\\).",
+      choices: ["4", "8", "12", "16"],
+      correctIndex: 3,
+      correctText: "16"
+    },
+    {
+      // 문제: \(\log_{9}(3\\sqrt{3})\) → 답: \(\frac{3}{4}\)
+      question: "다음을 간단히 하시오: \\(\\log_{9}(3\\sqrt{3})\\).",
+      choices: ["\\(\\tfrac12\\)", "\\(\\tfrac34\\)", "1", "\\(\\tfrac54\\)"],
+      correctIndex: 1,
+      correctText: "\\(\\tfrac{3}{4}\\)"
+    },
+    {
+      // 문제: \(27^{\\log_{3}(2)}\) → 답: 8
+      question: "다음을 간단히 하시오: \\(27^{\\log_{3}(2)}\\).",
+      choices: ["2", "4", "6", "8"],
+      correctIndex: 3,
+      correctText: "8"
+    },
+    {
+      // 문제: \(\log_{81}(27)\) → 답: \(\frac{3}{4}\)
+      question: "다음을 간단히 하시오: \\(\\log_{81}(27)\\).",
+      choices: ["\\(\\tfrac14\\)", "\\(\\tfrac12\\)", "\\(\\tfrac{3}{4}\\)", "1"],
+      correctIndex: 2,
+      correctText: "\\(\\tfrac{3}{4}\\)"
+    },
+    {
+      // 문제: \(2^{\\log_{2}(10)}\) → 답: 10
+      question: "다음을 간단히 하시오: \\(2^{\\log_{2}(10)}\\).",
+      choices: ["2", "5", "10", "12"],
+      correctIndex: 2,
+      correctText: "10"
+    },
+    {
+      // 문제: \(\log_{8}(2\\sqrt{2})\) → 답: \(\frac{1}{2}\)
+      question: "다음을 간단히 하시오: \\(\\log_{8}(2\\sqrt{2})\\).",
+      choices: ["\\(\\tfrac13\\)", "\\(\\tfrac12\\)", "\\(\\tfrac23\\)", "1"],
+      correctIndex: 1,
+      correctText: "\\(\\tfrac12\\)"
+    },
+    {
+      // 문제: \(\log_{5^3}(5^4)\) → 답: \(\frac{4}{3}\)
+      question: "다음을 간단히 하시오: \\(\\log_{5^3}(5^4)\\).",
+      choices: ["1", "\\(\\tfrac{4}{3}\\)", "\\(\\tfrac{3}{4}\\)", "5"],
+      correctIndex: 1,
+      correctText: "\\(\\tfrac{4}{3}\\)"
+    },
+    {
+      // 문제: \(3^{\\log_{3}(10)}\) → 답: 10
+      question: "다음을 간단히 하시오: \\(3^{\\log_{3}(10)}\\).",
+      choices: ["3", "9", "10", "30"],
+      correctIndex: 2,
+      correctText: "10"
+    },
+    {
+      // 문제: \(2^{\\log_{4}(9)}\) → 답: 3
+      question: "다음을 간단히 하시오: \\(2^{\\log_{4}(9)}\\).",
+      choices: ["2", "3", "4", "9"],
+      correctIndex: 1,
+      correctText: "3"
+    },
+    {
+      // 문제: \(125^{\\log_{25}(9)}\) → 답: 27
+      question: "다음을 간단히 하시오: \\(125^{\\log_{25}(9)}\\).",
+      choices: ["9", "15", "25", "27"],
+      correctIndex: 3,
+      correctText: "27"
+    },
+    {
+      // 문제: \(\log_{\\tfrac12}(10) + \\log_{\\tfrac14}(25)\) → 답: \(-1 - 2\\log_{2}(5)\)
+      question: "다음을 간단히 하시오: \\(\\log_{\\tfrac12}(10) + \\log_{\\tfrac14}(25)\\).",
+      choices: [
+        "-1",
+        "-2\\log_{2}(5)",
+        "-1 - 2\\log_{2}(5)",
+        "1 - 2\\log_{2}(5)"
+      ],
+      correctIndex: 2,
+      correctText: "-1 - 2\\log_{2}(5)"
+    },
+    {
+      // 문제: \(\log_{\\tfrac12}(2) + \\log_{7}(\\tfrac{1}{7})\) → 답: -2
+      question: "다음을 간단히 하시오: \\(\\log_{\\tfrac12}(2) + \\log_{7}(\\tfrac{1}{7})\\).",
+      choices: ["-2", "-1", "0", "2"],
+      correctIndex: 0,
+      correctText: "-2"
+    },
+    {
+      // 문제: \(\log_{4}(2) + \\log_{16}(2)\) → 답: \(\frac{3}{4}\)
+      question: "다음을 간단히 하시오: \\(\\log_{4}(2) + \\log_{16}(2)\\).",
+      choices: ["\\(\\tfrac12\\)", "\\(\\tfrac34\\)", "1", "\\(\\tfrac54\\)"],
+      correctIndex: 1,
+      correctText: "\\(\\tfrac34\\)"
+    },
+    {
+      // 문제: \(\log_{8}(81) + \\log_{4}(3)\) → 답: \(\frac{11}{6}\\log_{2}(3)\)
+      question: "다음을 간단히 하시오: \\(\\log_{8}(81) + \\log_{4}(3)\\).",
+      choices: [
+        "\\(\\tfrac{11}{6}\\log_{2}(3)\\)",
+        "3",
+        "\\(\\tfrac12\\)",
+        "5"
+      ],
+      correctIndex: 0,
+      correctText: "\\(\\tfrac{11}{6}\\log_{2}(3)\\)"
+    },
+    {
+      // 문제: \(\log_{3}(\\sqrt[3]{16}) + \\log_{9}(\\sqrt{8})\) → 답: \(\frac{25}{12}\\log_{3}(2)\)
+      question: "다음을 간단히 하시오: \\(\\log_{3}(\\sqrt[3]{16}) + \\log_{9}(\\sqrt{8})\\).",
+      choices: [
+        "\\(\\tfrac{25}{12}\\log_{3}(2)\\)",
+        "\\(\\tfrac{4}{3}\\log_{3}(2)\\)",
+        "3",
+        "4"
+      ],
+      correctIndex: 0,
+      correctText: "\\(\\tfrac{25}{12}\\log_{3}(2)\\)"
+    },
+    {
+      // 문제: 조건 \(2^{a+b}=5\), \(3^{a-b}=4\)에서 \(3^{a^2-b^2}\)의 값을 구하시오.
+      // 풀이: \(a^2-b^2=(a+b)(a-b)=\log_2 5 \cdot \log_3 4\)이고, 이를 지수법칙에 따라 정리하면 \(25\)가 된다.
+      question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(2^{a+b}=5\\), \\(3^{a-b}=4\\).<br/>이때 \\(3^{a^2 - b^2}\\)의 값을 구하시오.",
+      choices: ["4", "9", "16", "25"],
+      correctIndex: 3,
+      correctText: "25"
+    },
+    {
+      // 문제: 조건 \(4^a=125\), \(16^b=27\)에서 \(5^{b/a}\)의 값을 구하시오.
+      // 풀이: 양 변을 로그로 풀면 \(b/a=\frac{1}{2}\\log_5 3\)가 되어, 답은 \(\sqrt{3}\)이다.
+      question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(4^a=125\\), \\(16^b=27\\).<br/>이때 \\(5^{\\frac{b}{a}}\\)의 값을 구하시오.",
+      choices: [
+        "\\(\\sqrt{2}\\)",
+        "\\(\\sqrt{3}\\)",
+        "2",
+        "3"
+      ],
+      correctIndex: 1,
+      correctText: "\\(\\sqrt{3}\\)"
+    },
+    {
+      // 문제: 조건 \(3^{a+b}=4\), \(2^{a-b}=5\)에서 \(3^{a^2-b^2}\)의 값을 구하시오.
+      // 풀이: \(a^2-b^2=(a+b)(a-b)=\\log_3 4 \\cdot \\log_2 5\)를 정리하면 \(25\)가 된다.
+      question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(3^{a+b}=4\\), \\(2^{a-b}=5\\).<br/>이때 \\(3^{a^2 - b^2}\\)의 값을 구하시오.",
+      choices: ["9", "16", "20", "25"],
+      correctIndex: 3,
+      correctText: "25"
+    },
+    {
+      // 문제: 조건 \(27^a=8\), \(3^b=49\)에서 \(2^{b/a}\)의 값을 구하시오.
+      // 풀이: \(27^a=3^{3a}=8=2^3\)로 \(a=\\log_3 2\)이고, \(b=\\log_3 49\)이므로 \(2^{b/a}=49\)이다.
+      question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(27^a=8\\), \\(3^b=49\\).<br/>이때 \\(2^{\\frac{b}{a}}\\)의 값을 구하시오.",
+      choices: ["7", "16", "25", "49"],
+      correctIndex: 3,
+      correctText: "49"
+    },
+    {
+      // 문제: 조건 \(5^a=2\), \(5^b=3\)에서 \(2^{b/a}\)의 값을 구하시오.
+      // 풀이: \(a=\\log_5 2\), \(b=\\log_5 3\)이므로 \(b/a=\\log_2 3\)이고, 답은 \(3\)이다.
+      question: "다음 조건을 만족하는 실수 \\(a,b\\)에 대하여 \\(5^a=2\\), \\(5^b=3\\).<br/>이때 \\(2^{\\frac{b}{a}}\\)의 값을 구하시오.",
+      choices: ["2", "3", "4", "6"],
+      correctIndex: 1,
+      correctText: "3"
+    }
+  ];
 
-// -------------------- 전역 변수들 --------------------
-let userName = "";
-let difficulty = "";
-let questionTimeLimit = 0;    // 문제별 남은시간(초) / 하 난이도=0(무제한)
-let questionScore = 0;       // 난이도별 문제당 점수
+  // -------------------- 전역 변수들 --------------------
+  let userName = "";
+  let difficulty = "";
+  let questionTimeLimit = 0;    // 문제별 남은시간(초) / 하 난이도=0(무제한)
+  let questionScore = 0;       // 난이도별 문제당 점수
 
-let score = 0;
-let lives = 3;
-let totalSeconds = 0; // 전체 경과 시간(초)
-let totalTimerId = null;
+  let score = 0;
+  let lives = 3;
+  let totalSeconds = 0; // 전체 경과 시간(초)
+  let totalTimerId = null;
 
-let currentQuestion = null;
-let currentQuestionIndex = -1;
-let usedQuestionsCount = 0; // 고유 문제를 몇 개나 출제했는지
-let questionOrder = []; // 초기에 모든 문제 섞어서 한번씩 출제, 그 뒤 무한 랜덤
+  let currentQuestion = null;
+  let currentQuestionIndex = -1;
+  let usedQuestionsCount = 0; // 고유 문제를 몇 개나 출제했는지
+  let questionOrder = []; // 초기에 모든 문제 섞어서 한번씩 출제, 그 뒤 무한 랜덤
 
-let questionIntervalId = null; // 각 문제별 타이머
-let energyIntervalId = null;
+  let questionIntervalId = null; // 각 문제별 타이머
+  let energyIntervalId = null;
 
-// -------------------- 난이도 선택에 따른 설정 --------------------
-function setDifficulty(diff) {
-  switch(diff) {
-    case "최상":
-      questionTimeLimit = 20;
-      questionScore = 20;
-      break;
-    case "상":
-      questionTimeLimit = 30;
-      questionScore = 15;
-      break;
-    case "중":
-      questionTimeLimit = 40;
-      questionScore = 13;
-      break;
-    case "하":
-      questionTimeLimit = 0; // 무제한
-      questionScore = 10;
-      break;
-  }
-}
-
-// -------------------- 게임 시작 --------------------
-function startGame() {
-  userName = document.getElementById("userName").value.trim();
-  difficulty = document.getElementById("difficultySelect").value;
-
-  if (!userName) {
-    alert("이름을 입력해주세요!");
-    return;
+  // -------------------- 난이도 선택에 따른 설정 --------------------
+  function setDifficulty(diff) {
+    switch(diff) {
+      case "최상":
+        questionTimeLimit = 20;
+        questionScore = 20;
+        break;
+      case "상":
+        questionTimeLimit = 30;
+        questionScore = 15;
+        break;
+      case "중":
+        questionTimeLimit = 40;
+        questionScore = 13;
+        break;
+      case "하":
+        questionTimeLimit = 0; // 무제한
+        questionScore = 10;
+        break;
+    }
   }
 
-  document.getElementById("mainMenu").classList.add("hidden");
-  document.getElementById("quizScreen").classList.remove("hidden");
+  // -------------------- 게임 시작 --------------------
+  function startGame() {
+    userName = document.getElementById("userName").value.trim();
+    difficulty = document.getElementById("difficultySelect").value;
 
-  // 난이도 설정
-  setDifficulty(difficulty);
-  // 초기화
-  score = 0;
-  lives = 3;
-  totalSeconds = 0;
-  document.getElementById("score").innerText = score;
-  document.getElementById("lives").innerText = lives;
+    if (!userName) {
+      alert("이름을 입력해주세요!");
+      return;
+    }
 
-  // 에너지바 표시는 난이도가 하(무제한)인 경우 숨김
-  if (questionTimeLimit > 0) {
-    document.getElementById("energyBarContainer").classList.remove("hidden");
-  } else {
-    document.getElementById("energyBarContainer").classList.add("hidden");
-  }
+    document.getElementById("mainMenu").classList.add("hidden");
+    document.getElementById("quizScreen").classList.remove("hidden");
 
-  // 전체 타이머 시작
-  if (totalTimerId) clearInterval(totalTimerId);
-  totalTimerId = setInterval(() => {
-    totalSeconds++;
-    document.getElementById("totalTime").innerText = totalSeconds + "초";
-  }, 1000);
-
-  // 문제 순서 섞기 (한번씩 출제 위해)
-  questionOrder = shuffle(Array.from(questions.keys())); // 0..(questions.length-1)
-  usedQuestionsCount = 0;
-
-  // 첫 문제 띄우기
-  loadNextQuestion();
-}
-
-// -------------------- 문제 로드(랜덤) --------------------
-function loadNextQuestion() {
-  stopQuestionTimer();
-
-  if (lives <= 0) {
-    endGame();
-    return;
-  }
-
-  let qIndex;
-  if (usedQuestionsCount < questions.length) {
-    // 아직 한 번씩 다 안 풀었다면, 섞인 배열에서 순서대로
-    qIndex = questionOrder[usedQuestionsCount];
-    usedQuestionsCount++;
-  } else {
-    // 이미 모든 문제를 1회씩 풀었다면, 무작위
-    qIndex = Math.floor(Math.random() * questions.length);
-  }
-
-  currentQuestionIndex = qIndex;
-  currentQuestion = questions[qIndex];
-
-  document.getElementById("feedback").innerHTML = "";
-  renderQuestion(currentQuestion);
-
-  if (questionTimeLimit > 0) {
-    startQuestionTimer(questionTimeLimit);
-  }
-}
-
-// -------------------- 문제 내용 표시 --------------------
-function renderQuestion(q) {
-  const questionArea = document.getElementById("questionArea");
-  const choicesArea = document.getElementById("choicesArea");
-  questionArea.innerHTML = q.question; // 수식 포함
-  choicesArea.innerHTML = "";
-
-  // 4지선다 버튼
-  for (let i = 0; i < 4; i++) {
-    const btn = document.createElement("button");
-    btn.innerHTML = q.choices[i]; // 수식 or 텍스트
-    btn.onclick = () => checkAnswer(i);
-    choicesArea.appendChild(btn);
-  }
-
-  // MathJax 렌더링
-  MathJax.typeset();
-}
-
-// -------------------- 정답 확인 --------------------
-function checkAnswer(choiceIndex) {
-  stopQuestionTimer();
-
-  if (choiceIndex === currentQuestion.correctIndex) {
-    // 정답
-    score += questionScore;
+    // 난이도 설정
+    setDifficulty(difficulty);
+    // 초기화
+    score = 0;
+    lives = 3;
+    totalSeconds = 0;
     document.getElementById("score").innerText = score;
-    document.getElementById("feedback").innerHTML 
-      = "<span class='correct'>정답입니다!</span>";
-  } else {
-    // 오답
+    document.getElementById("lives").innerText = lives;
+
+    // 에너지바 표시는 난이도가 하(무제한)인 경우 숨김
+    if (questionTimeLimit > 0) {
+      document.getElementById("energyBarContainer").classList.remove("hidden");
+    } else {
+      document.getElementById("energyBarContainer").classList.add("hidden");
+    }
+
+    // 전체 타이머 시작
+    if (totalTimerId) clearInterval(totalTimerId);
+    totalTimerId = setInterval(() => {
+      totalSeconds++;
+      document.getElementById("totalTime").innerText = totalSeconds + "초";
+    }, 1000);
+
+    // 문제 순서 섞기 (한번씩 출제하기 위함)
+    questionOrder = shuffle(Array.from(questions.keys())); // 0 ~ (questions.length-1)
+    usedQuestionsCount = 0;
+
+    // 첫 문제 띄우기
+    loadNextQuestion();
+  }
+
+  // -------------------- 문제 로드(랜덤) --------------------
+  function loadNextQuestion() {
+    stopQuestionTimer();
+
+    if (lives <= 0) {
+      endGame();
+      return;
+    }
+
+    let qIndex;
+    if (usedQuestionsCount < questions.length) {
+      // 아직 한 번씩 다 안 풀었다면, 섞인 배열에서 순서대로
+      qIndex = questionOrder[usedQuestionsCount];
+      usedQuestionsCount++;
+    } else {
+      // 모든 문제를 한 번씩 풀었다면, 무작위 선택
+      qIndex = Math.floor(Math.random() * questions.length);
+    }
+
+    currentQuestionIndex = qIndex;
+    currentQuestion = questions[qIndex];
+
+    document.getElementById("feedback").innerHTML = "";
+    renderQuestion(currentQuestion);
+
+    if (questionTimeLimit > 0) {
+      startQuestionTimer(questionTimeLimit);
+    }
+  }
+
+  // -------------------- 문제 내용 표시 --------------------
+  function renderQuestion(q) {
+    const questionArea = document.getElementById("questionArea");
+    const choicesArea = document.getElementById("choicesArea");
+    questionArea.innerHTML = q.question; // 수식 포함
+    choicesArea.innerHTML = "";
+
+    // 4지선다 버튼 생성
+    for (let i = 0; i < 4; i++) {
+      const btn = document.createElement("button");
+      btn.innerHTML = q.choices[i]; // 수식 또는 텍스트
+      btn.onclick = () => checkAnswer(i);
+      choicesArea.appendChild(btn);
+    }
+
+    // MathJax 렌더링
+    MathJax.typeset();
+  }
+
+  // -------------------- 정답 확인 --------------------
+  function checkAnswer(choiceIndex) {
+    stopQuestionTimer();
+
+    if (choiceIndex === currentQuestion.correctIndex) {
+      // 정답인 경우
+      score += questionScore;
+      document.getElementById("score").innerText = score;
+      document.getElementById("feedback").innerHTML = "<span class='correct'>정답입니다!</span>";
+    } else {
+      // 오답인 경우
+      lives--;
+      document.getElementById("lives").innerText = lives;
+      document.getElementById("feedback").innerHTML = "<span class='incorrect'>틀렸습니다! 정답은 [ " + currentQuestion.correctText + " ] 입니다.</span>";
+    }
+
+    if (lives <= 0) {
+      endGame();
+      return;
+    }
+
+    // 잠깐 후 다음 문제로 넘어감
+    setTimeout(loadNextQuestion, 1500);
+  }
+
+  // -------------------- 문제 타이머 및 에너지바 처리 --------------------
+  function startQuestionTimer(sec) {
+    let timeLeft = sec;
+    updateEnergyBar(timeLeft, sec);
+
+    questionIntervalId = setTimeout(() => {
+      // 시간 초과 시 자동 오답 처리
+      timesUp();
+    }, sec * 1000);
+
+    // 에너지바 업데이트 (0.5초마다)
+    let barUpdateInterval = sec > 0 ? 500 : 0; 
+    energyIntervalId = setInterval(() => {
+      timeLeft -= 0.5;
+      if (timeLeft < 0) timeLeft = 0;
+      updateEnergyBar(timeLeft, sec);
+    }, barUpdateInterval);
+  }
+
+  function updateEnergyBar(timeLeft, totalTime) {
+    if (totalTime <= 0) return;
+    const percent = (timeLeft / totalTime) * 100;
+    document.getElementById("energyBar").style.width = percent + "%";
+  }
+
+  function stopQuestionTimer() {
+    if (questionIntervalId) clearTimeout(questionIntervalId);
+    questionIntervalId = null;
+    if (energyIntervalId) clearInterval(energyIntervalId);
+    energyIntervalId = null;
+    // 에너지바를 다시 가득 채움
+    document.getElementById("energyBar").style.width = "100%";
+  }
+
+  function timesUp() {
+    stopQuestionTimer();
+    // 시간 초과 시 오답 처리
     lives--;
     document.getElementById("lives").innerText = lives;
-    document.getElementById("feedback").innerHTML 
-      = "<span class='incorrect'>틀렸습니다! 정답은 [ "
-      + currentQuestion.correctText
-      + " ] 입니다.</span>";
+    document.getElementById("feedback").innerHTML = "<span class='incorrect'>시간이 초과되었습니다! 정답은 [ " + currentQuestion.correctText + " ] 입니다.</span>";
+
+    if (lives <= 0) {
+      endGame();
+      return;
+    }
+    setTimeout(loadNextQuestion, 1500);
   }
 
-  if (lives <= 0) {
-    endGame();
-    return;
+  // -------------------- 게임 종료 --------------------
+  function endGame() {
+    stopQuestionTimer();
+    if (totalTimerId) clearInterval(totalTimerId);
+    totalTimerId = null;
+
+    document.getElementById("quizScreen").classList.add("hidden");
+    document.getElementById("endScreen").classList.remove("hidden");
+
+    document.getElementById("finalScore").innerText = score;
+    document.getElementById("finalTime").innerText = totalSeconds + "초";
   }
 
-  // 잠깐 보여주고 다음 문제
-  setTimeout(loadNextQuestion, 1500);
-}
-
-// -------------------- 문제 타이머 & 에너지바 처리 --------------------
-function startQuestionTimer(sec) {
-  let timeLeft = sec;
-  updateEnergyBar(timeLeft, sec);
-
-  questionIntervalId = setTimeout(() => {
-    // 시간 초과 => 자동 오답 처리
-    timesUp();
-  }, sec * 1000);
-
-  // 에너지바를 부드럽게 줄이기 위해 interval
-  let barUpdateInterval = sec > 0 ? 500 : 0; 
-  energyIntervalId = setInterval(() => {
-    timeLeft -= 0.5;
-    if (timeLeft < 0) timeLeft = 0;
-    updateEnergyBar(timeLeft, sec);
-  }, barUpdateInterval);
-}
-
-function updateEnergyBar(timeLeft, totalTime) {
-  if (totalTime <= 0) return;
-  const percent = (timeLeft / totalTime) * 100;
-  document.getElementById("energyBar").style.width = percent + "%";
-}
-
-function stopQuestionTimer() {
-  if (questionIntervalId) clearTimeout(questionIntervalId);
-  questionIntervalId = null;
-  if (energyIntervalId) clearInterval(energyIntervalId);
-  energyIntervalId = null;
-  // 에너지바 다시 가득
-  document.getElementById("energyBar").style.width = "100%";
-}
-
-function timesUp() {
-  stopQuestionTimer();
-  // 시간초과는 오답 처리 동일
-  lives--;
-  document.getElementById("lives").innerText = lives;
-  document.getElementById("feedback").innerHTML
-    = "<span class='incorrect'>시간이 초과되었습니다! "
-      + "정답은 [ " + currentQuestion.correctText + " ] 입니다.</span>";
-
-  if (lives <= 0) {
-    endGame();
-    return;
+  // -------------------- 점수 전송 --------------------
+  function submitScore() {
+    saveData("로그의 성질", userName, score, totalSeconds);
   }
-  setTimeout(loadNextQuestion, 1500);
-}
 
-// -------------------- 게임 종료 --------------------
-function endGame() {
-  stopQuestionTimer();
-  if (totalTimerId) clearInterval(totalTimerId);
-  totalTimerId = null;
+  // -------------------- 데이터 전송 함수 --------------------
+  async function saveData(game, name, score, elapsedTime) {
+    const FUNCTION_URL = "https://us-central1-record-f420d.cloudfunctions.net/report";
 
-  document.getElementById("quizScreen").classList.add("hidden");
-  document.getElementById("endScreen").classList.remove("hidden");
-
-  document.getElementById("finalScore").innerText = score;
-  document.getElementById("finalTime").innerText = totalSeconds + "초";
-}
-
-// -------------------- 점수 전송 --------------------
-function submitScore() {
-  saveData("로그의 성질", userName, score, totalSeconds);
-}
-
-// -------------------- 데이터 전송 함수 (제공된 코드) --------------------
-async function saveData(game, name, score, elapsedTime) {
-  const FUNCTION_URL = "https://us-central1-record-f420d.cloudfunctions.net/report";
-
-  const requestData = {
+    const requestData = {
       game,
       name,
       score: parseInt(score, 10),
       elapsedTime: parseInt(elapsedTime, 10)
-  };
+    };
 
-  try {
+    try {
       const response = await fetch(FUNCTION_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestData)
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
       });
 
       const responseData = await response.json();
 
       if (response.ok) {
-          document.getElementById('response').innerText = 
-              `성공: ${JSON.stringify(responseData, null, 2)}`;
+        document.getElementById('response').innerText = `성공: ${JSON.stringify(responseData, null, 2)}`;
       } else {
-          document.getElementById('response').innerText = 
-              `오류: ${JSON.stringify(responseData, null, 2)}`;
+        document.getElementById('response').innerText = `오류: ${JSON.stringify(responseData, null, 2)}`;
       }
-  } catch (error) {
+    } catch (error) {
       console.error('요청 실패:', error);
-      document.getElementById('response').innerText = 
-          `네트워크 오류: ${error.message}`;
+      document.getElementById('response').innerText = `네트워크 오류: ${error.message}`;
+    }
   }
-}
 
-// -------------------- 유틸: 배열 셔플 --------------------
-function shuffle(arr) {
-  // Fisher-Yates
-  for (let i = arr.length - 1; i > 0; i--) {
-    const r = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[r]] = [arr[r], arr[i]];
+  // -------------------- 유틸리티: 배열 셔플 (Fisher-Yates) --------------------
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const r = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[r]] = [arr[r], arr[i]];
+    }
+    return arr;
   }
-  return arr;
-}
 </script>
 
 </body>
